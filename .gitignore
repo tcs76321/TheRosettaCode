@@ -1,5 +1,8 @@
 .idea
 .DS_Store
 
+*.hi
+*.o
+
 zig-out
 zig-cache
