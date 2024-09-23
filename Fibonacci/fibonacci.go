@@ -1,32 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+func fibonacci(n int) {
+	fmt.Printf("Fibonacci Sequence from 0 to %d\n", n)
+
+	fibPrint := func(x, y int) {
+		fmt.Printf("%d: %d\n", x, y)
+	}
+
+	prev, curr := 0, 0
+
+	fibPrint(0, curr)
+	curr++
+
+	for i := 0; i < n; i++ {
+		fibPrint(i+1, curr)
+		temp := curr
+		curr += prev
+		prev = temp
+	}
+
+	fmt.Println("End of Fib Seq")
+}
 
 func main() {
-
-    i := 1
-    for i <= 3 {
-        fmt.Println(i)
-        i = i + 1
-    }
-
-    // for j := 0; j < 3; j++ {
-    //     fmt.Println(j)
-    // }
-
-    // for i := range 3 {
-    //     fmt.Println("range", i)
-    // }
-
-    // for {
-    //     fmt.Println("loop")
-    //     break
-    // }
-
-    // for n := range 6 {
-    //     if n%2 == 0 {
-    //         continue
-    //     }
-    //     fmt.Println(n)
-    // }
+	fibonacci(10)
 }
