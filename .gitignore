@@ -1,8 +1,9 @@
-.idea
 .DS_Store
+.idea
 
+*.class
 *.hi
 *.o
 
-zig-out
 zig-cache
+zig-out
