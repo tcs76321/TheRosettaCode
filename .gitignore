@@ -11,5 +11,5 @@ zig-cache
 zig-out
 
 # Rust specific
-/target/
+**/target/
 **/*.rs.bk
