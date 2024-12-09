@@ -1,9 +1,15 @@
 .DS_Store
 .idea/
 
+# Haskell specific
 *.class
 *.hi
 *.o
 
+# Zig specific
 zig-cache
 zig-out
+
+# Rust specific
+/target/
+**/*.rs.bk
