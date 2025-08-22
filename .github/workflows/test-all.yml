@@ -8,31 +8,31 @@ on:
 
 jobs:
   test:
-    name: Test (${{ matrix.language }} - ${{ matrix.problem }})
+    name: Test ${{ matrix.language }} on ${{ matrix.problem }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         language: [python]
-        problem: [fibonnaci, hello_world] #, quick_sort]
+        problem: [fibonacci, hello_world]
       fail-fast: false
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Language Environment
+      - name: Setup ${{ matrix.language }}
         uses: actions/setup-${{ matrix.language }}@v2
         with:
-          node-version: '20'
-          python-version: '3.10'
-          java-version: '17'
+          ${{ matrix.language }}-version: |
+            3.10
 
-      - name: Install Dependencies (if any)
+      - name: Install Dependencies
         run: |
-          # Example for Python
-          if [ "${{ matrix.language }}" = "python" ]; then pip install -r requirements.txt; fi
-          # Example for Node
-          if [ "${{ matrix.language }}" = "node" ]; then npm install; fi
+          if [ "${{ matrix.language }}" = "python" ]; then
+            pip install -r requirements.txt
+          elif [ "${{ matrix.language }}" = "node" ]; then
+            npm install
+          fi
 
       - name: Run Tests
         run: ./scripts/run_tests.sh ${{ matrix.language }} ${{ matrix.problem }}
