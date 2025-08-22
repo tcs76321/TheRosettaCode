@@ -20,11 +20,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup ${{ matrix.language }}
-        uses: actions/setup-${{ matrix.language }}@v2
+      - name: Setup Python
+        if: matrix.language == 'python'
+        uses: actions/setup-python@v4
         with:
-          ${{ matrix.language }}-version: |
-            3.10
+          python-version: '3.10'
+
+      - name: Setup Node.js
+        if: matrix.language == 'node'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       - name: Install Dependencies
         run: |
