@@ -1,0 +1,14 @@
+{
+  "test_cases": [
+    {
+      "name": "Input of 1 returns '0'",
+      "input": 1,
+      "expected": "0"
+    },
+    {
+      "name": "Input of 2 returns '1'",
+      "input": 3,
+      "expected": "1"
+    }
+  ]
+}

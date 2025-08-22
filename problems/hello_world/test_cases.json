@@ -1,0 +1,9 @@
+{
+  "test_cases": [
+    {
+      "name": "Hello World!",
+      "input": 1,
+      "expected": "Hello World!"
+    }
+  ]
+}
