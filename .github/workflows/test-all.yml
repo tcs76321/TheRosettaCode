@@ -24,7 +24,7 @@ jobs:
         if: matrix.language == 'python'
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Setup Node.js
         if: matrix.language == 'node'
@@ -32,13 +32,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Dependencies
-        run: |
-          if [ "${{ matrix.language }}" = "python" ]; then
-            pip install -r requirements.txt
-          elif [ "${{ matrix.language }}" = "node" ]; then
-            npm install
-          fi
+      # - name: Install Dependencies
+      #   run: |
+      #     if [ "${{ matrix.language }}" = "python" ]; then
+      #       pip install -r requirements.txt
+      #     elif [ "${{ matrix.language }}" = "node" ]; then
+      #       npm install
+      #     fi
 
       - name: Run Tests
         run: ./scripts/run_tests.sh ${{ matrix.language }} ${{ matrix.problem }}
