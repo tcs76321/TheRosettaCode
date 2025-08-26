@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -32,13 +32,8 @@ jobs:
         with:
           node-version: '20'
 
-      # - name: Install Dependencies
-      #   run: |
-      #     if [ "${{ matrix.language }}" = "python" ]; then
-      #       pip install -r requirements.txt
-      #     elif [ "${{ matrix.language }}" = "node" ]; then
-      #       npm install
-      #     fi
+      - name: Make Scripts Executable
+        run: chmod +x ./scripts/run_tests.sh
 
       - name: Run Tests
         run: ./scripts/run_tests.sh ${{ matrix.language }} ${{ matrix.problem }}
