@@ -33,7 +33,7 @@ jobs:
           node-version: '20'
 
       - name: Make Scripts Executable
-        run: chmod +x ./scripts/run_tests.sh
+        run: chmod +x ./scripts/*.sh
 
       - name: Run Tests
         run: ./scripts/run_tests.sh ${{ matrix.language }} ${{ matrix.problem }}
