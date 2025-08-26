@@ -6,10 +6,10 @@ echo "=== Testing $2 with $LANGUAGE ==="
 
 case $LANGUAGE in
     "python")
-        ./scripts/adapter_python.py "$PROBLEM_DIR"
+        ./scripts/adapter_python.sh "$PROBLEM_DIR"
         ;;
-    "node")
-        ./scripts/test_node.sh "$PROBLEM_DIR"
+    "javascript")
+        ./scripts/adapter_javascript.sh "$PROBLEM_DIR"
         ;;
     "java")
         # You would create a test_java.sh script
