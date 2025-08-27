@@ -2,27 +2,61 @@
 set -e  # Exit on any error
 
 PROBLEM_DIR=$1
-cd "$PROBLEM_DIR"
+cd "$PROBLEM_DIR/python"
 
-# Read the test cases and loop through them
-TEST_CASES=$(python -c "import json; data=json.load(open('test_cases.json')); print(len(data['test_cases']))")
-echo "Running $TEST_CASES tests for Python..."
+# Get the problem name from the directory name
+PROBLEM_NAME=$(basename "$PROBLEM_DIR")
 
-for (( i=0; i<$TEST_CASES; i++ )); do
-    INPUT=$(python -c "import json; data=json.load(open('test_cases.json')); print(data['test_cases'][$i]['input'])")
-    EXPECTED=$(python -c "import json; data=json.load(open('test_cases.json')); print(data['test_cases'][$i]['expected'])")
+echo "Running Python tests for $PROBLEM_NAME..."
 
-    # Call the implementation and capture the result
-    ACTUAL=$(python -c "from implementation import fizzbuzz; print(fizzbuzz($INPUT))")
+# Use Python to run the tests
+python3 -c "
+import json
+import sys
+import os
 
-    # Compare and throw an error if they don't match
-    if [ "$ACTUAL" != "$EXPECTED" ]; then
-        echo "TEST FAILED:"
-        echo "  Input:    $INPUT"
-        echo "  Expected: $EXPECTED"
-        echo "  Actual:   $ACTUAL"
-        exit 1
-    fi
-done
+# Add the current directory to Python path
+sys.path.insert(0, '.')
 
-echo "All tests for Python passed!"
+# Import the implementation
+try:
+    # Import the module (e.g., fibonacci)
+    impl_module = __import__('$PROBLEM_NAME')
+    # Get the function (assumes function name matches module name)
+    impl_function = getattr(impl_module, '$PROBLEM_NAME')
+except ImportError as e:
+    print(f'Failed to import implementation: {e}')
+    sys.exit(1)
+except AttributeError as e:
+    print(f'Function $PROBLEM_NAME not found in module: {e}')
+    sys.exit(1)
+
+# Load test cases
+try:
+    with open('../test_cases.json', 'r') as f:
+        test_data = json.load(f)
+except FileNotFoundError:
+    print('Error: test_cases.json not found')
+    sys.exit(1)
+
+all_passed = True
+
+for test_case in test_data.get('test_cases', []):
+    try:
+        # Run the test
+        result = impl_function(test_case['input'])
+        expected = test_case['expected']
+        
+        if result != expected:
+            print(f'FAIL: {test_case.get(\"name\", \"Unnamed test\")}')
+            print(f'  Input:    {test_case[\"input\"]}')
+            print(f'  Expected: {expected}')
+            print(f'  Got:      {result}')
+            all_passed = False
+            
+    except Exception as e:
+        print(f'ERROR in test: {test_case.get(\"name\", \"Unnamed test\")} - {e}')
+        all_passed = False
+
+sys.exit(0 if all_passed else 1)
+"
