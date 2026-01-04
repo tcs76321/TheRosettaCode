@@ -14,6 +14,9 @@ jobs:
       matrix:
         language: [python]
         problem: [fibonacci, hello_world]
+        # exclude:
+        #   - language: typescript
+        #     problem: quick_sort
       fail-fast: false
 
     steps:
