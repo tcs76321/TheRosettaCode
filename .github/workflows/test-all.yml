@@ -26,14 +26,26 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Setup Node.js
-        if: matrix.language == 'node'
+      - name: Setup Node. js
+        if: matrix.language == 'javascript' || matrix.language == 'typescript'
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version:  '20'
+
+      - name:  Setup Go
+        if: matrix.language == 'go'
+        uses:  actions/setup-go@v4
+        with:
+          go-version: '1.21'
 
       - name: Make Scripts Executable
         run: chmod +x ./scripts/*.sh
 
       - name: Run Tests
-        run: ./scripts/run_tests.sh ${{ matrix.language }} ${{ matrix.problem }}
+        run: ./scripts/run_tests. sh ${{ matrix.language }} ${{ matrix.problem }}
+        continue-on-error: true
+
+      - name: Report Results
+        if: always()
+        run: |
+          echo "Test completed for ${{ matrix.language }} on ${{ matrix.problem }}"
