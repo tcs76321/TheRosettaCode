@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         language: [python]
-        problem: [fibonacci, hello_world]
+        problem: [fibonacci, hello_world, quick_sort]
         # exclude:
         #   - language: typescript
         #     problem: quick_sort
