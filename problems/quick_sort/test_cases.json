@@ -1,14 +1,44 @@
 {
   "test_cases": [
     {
-      "name": "Input of 1 returns '0'",
-      "input": 1,
-      "expected": "0"
+      "name": "Empty Array",
+      "input": [],
+      "expected_output": []
     },
     {
-      "name": "Input of 2 returns '1'",
-      "input": 3,
-      "expected": "1"
+      "name": "Single Element",
+      "input": [42],
+      "expected_output": [42]
+    },
+    {
+      "name": "Already Sorted Array",
+      "input": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      "expected_output": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    {
+      "name": "Reverse Sorted Array",
+      "input": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+      "expected_output": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    },
+    {
+      "name": "Unsorted Array",
+      "input": [64, 34, 25, 12, 22, 11, 90, 88, 45, 50],
+      "expected_output": [11, 12, 22, 25, 34, 45, 50, 64, 88, 90]
+    },
+    {
+      "name": "Array with Duplicates",
+      "input": [5, 2, 8, 2, 9, 1, 5, 5],
+      "expected_output": [1, 2, 2, 5, 5, 5, 8, 9]
+    },
+    {
+      "name": "Array with Negative Numbers",
+      "input": [3, -1, 4, -5, 0, 2, -3, 7],
+      "expected_output": [-5, -3, -1, 0, 2, 3, 4, 7]
+    },
+    {
+      "name": "Two Elements",
+      "input": [2, 1],
+      "expected_output": [1, 2]
     }
   ]
 }
